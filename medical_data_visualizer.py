@@ -47,46 +47,21 @@ def draw_heat_map():
     ]
 
     # Calculate the correlation matrix
-    corr = df_heat.corr().round(1)
+    corr = df_heat.corr()
     
 
     # Generate a mask for the upper triangle
+   
     mask = np.triu(corr)
-    
     
 
     # Set up the matplotlib figure
-    fig, ax = plt.subplots(figsize=(9,9))
+    fig, ax = plt.subplots(figsize=(7, 5))
+    
 
     # Draw the heatmap with 'sns.heatmap()'
-    mask = np.zeros_like(corr)
-    
-    heat = sns.heatmap(corr,mask=mask, fmt='.1f',vmax=.8, linewidths=.5,square=True, cbar_kws = {'shrink':0.5},annot=True, center=0)
-
-
-    # Do not modify the next two lines
-    fig.savefig('heatmap.png')
-    return fig
-
-    # Clean the data
-    df_heat = df[(df['ap_lo']<=df['ap_hi']) &
-    (df['height'] >= df['height'].quantile(0.025))&
-    (df['height'] <= df['height'].quantile(0.975))&
-    (df['weight'] >= df['weight'].quantile(0.025))&
-    (df['weight'] <= df['weight'].quantile(0.975))
-    ]
-
-    # Calculate the correlation matrix
-    corr = df_heat.corr().round(1)
-    
-    # Generate a mask for the upper triangle
-    mask = np.triu(corr)
-
-    # Set up the matplotlib figure
-    fig, ax = plt.subplots(figsize=(9,9))
-
-    # Draw the heatmap with 'sns.heatmap()'
-    heat = sns.heatmap(corr,mask=mask,annot=True, center=0)
+    sns.heatmap(corr,mask=mask, fmt='.1f',vmax=.3, linewidths=.5,square=True, cbar_kws = {'shrink':0.5},annot=True, center=0)
+  
 
     # Do not modify the next two lines
     fig.savefig('heatmap.png')
