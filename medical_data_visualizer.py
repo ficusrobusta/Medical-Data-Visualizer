@@ -22,19 +22,15 @@ def draw_cat_plot():
     # Create DataFrame for cat plot using `pd.melt` using just the values from 'cholesterol', 'gluc', 'smoke', 'alco', 'active', and 'overweight'.
     df_cat = pd.melt(df, id_vars = ['cardio'], var_name = 'variable', value_vars = ['alco', 'active','cholesterol', 'gluc',  'overweight','smoke'])
 
-
     # Group and reformat the data to split it by 'cardio'. Show the counts of each feature. You will have to rename one of the collumns for the catplot to work correctly.
     df_cat = pd.melt(df, id_vars = ['cardio'], var_name = 'variable', value_vars = [('cholesterol', 'gluc', 'smoke', 'alco', 'active', 'overweight')])
 
     # Draw the catplot with 'sns.catplot()'
     fig = sns.catplot(data=df_cat, kind="count",  x="variable",hue="value", col="cardio").set_axis_labels("variable", "Total")
 
-
-
     # Do not modify the next two lines
     fig.savefig('catplot.png')
     return fig
-
 
 # Draw Heat Map
 def draw_heat_map():
@@ -49,11 +45,8 @@ def draw_heat_map():
     # Calculate the correlation matrix
     corr = df_heat.corr().round(1)
     
-
     # Generate a mask for the upper triangle
     mask = np.triu(corr)
-    
-    
 
     # Set up the matplotlib figure
     fig, ax = plt.subplots(figsize=(9,9))
@@ -61,10 +54,6 @@ def draw_heat_map():
     # Draw the heatmap with 'sns.heatmap()'
     heat = sns.heatmap(corr,mask=mask,annot=True, center=0)
 
-
-
-
     # Do not modify the next two lines
     fig.savefig('heatmap.png')
     return fig
-
